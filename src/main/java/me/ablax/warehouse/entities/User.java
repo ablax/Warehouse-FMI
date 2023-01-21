@@ -6,6 +6,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import me.ablax.warehouse.models.UserDto;
 
 @Entity
 @Table
@@ -27,7 +28,7 @@ public class User {
     @Column
     private String password;
 
-    /*Will se later about that*/
+    /*Will see later about that*/
 
     public User() {
     }
@@ -78,5 +79,9 @@ public class User {
 
     public void setPassword(final String password) {
         this.password = password;
+    }
+
+    public UserDto toDto() {
+        return new UserDto(id,username);
     }
 }
