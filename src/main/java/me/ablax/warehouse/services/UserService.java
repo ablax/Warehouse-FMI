@@ -1,6 +1,6 @@
 package me.ablax.warehouse.services;
 
-import me.ablax.warehouse.entities.User;
+import me.ablax.warehouse.entities.UserEntity;
 import me.ablax.warehouse.exceptions.AuthenticationException;
 import me.ablax.warehouse.models.req.LoginReq;
 import me.ablax.warehouse.models.req.RegisterReq;
@@ -29,15 +29,15 @@ public class UserService {
             throw new AuthenticationException("Password does not match!");
         }
 
-        final User user = new User();
-        user.setUsername(registerReq.getUsername());
-        user.setEmail(registerReq.getEmail());
-        user.setPhoneNumber(registerReq.getPhoneNumber());
+        final UserEntity userEntity = new UserEntity();
+        userEntity.setUsername(registerReq.getUsername());
+        userEntity.setEmail(registerReq.getEmail());
+        userEntity.setPhoneNumber(registerReq.getPhoneNumber());
 
         String generatedPassword = BCrypt.hashpw(registerReq.getPassword().trim(), BCrypt.gensalt(12));
-        user.setPassword(generatedPassword);
+        userEntity.setPassword(generatedPassword);
 
-        return userRepository.save(user).toDto();
+        return userRepository.save(userEntity).toDto();
     }
 
     public boolean doesUserExist(final RegisterReq registerReq) {
@@ -45,20 +45,20 @@ public class UserService {
     }
 
 
-    public User findById(final Long userId) {
+    public UserEntity findById(final Long userId) {
         return userRepository.findById(userId).orElse(null);
     }
 
     public UserDto loginUser(final LoginReq loginReq) {
-        final User user = userRepository.findByEmailOrUsername(loginReq.getUsername(), loginReq.getUsername());
-        if (user == null) {
+        final UserEntity userEntity = userRepository.findByEmailOrUsername(loginReq.getUsername(), loginReq.getUsername());
+        if (userEntity == null) {
             throw new AuthenticationException("Invalid credentials!");
         }
 
-        final boolean checkpw = BCrypt.checkpw(loginReq.getPassword().trim(), user.getPassword());
+        final boolean checkpw = BCrypt.checkpw(loginReq.getPassword().trim(), userEntity.getPassword());
         if (!checkpw) {
             throw new AuthenticationException("Invalid credentials!");
         }
-        return user.toDto();
+        return userEntity.toDto();
     }
 }

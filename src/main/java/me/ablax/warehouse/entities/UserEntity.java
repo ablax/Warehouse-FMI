@@ -2,24 +2,17 @@ package me.ablax.warehouse.entities;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import me.ablax.warehouse.models.UserDto;
 
 @Entity
 @Table
-public class User {
+public class UserEntity extends BaseEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    @Column
+    @Column(length = 15, nullable = false)
     private String username;
 
-    @Column
+    @Column(nullable = false, length = 50)
     private String email;
 
     @Column
@@ -28,25 +21,16 @@ public class User {
     @Column
     private String password;
 
-    /*Will see later about that*/
 
-    public User() {
+    public UserEntity() {
     }
 
-    public User(final Long id, final String username, final String email, final String phoneNumber, final String password) {
-        this.id = id;
+    public UserEntity(final Long id, final String username, final String email, final String phoneNumber, final String password) {
+        super(id);
         this.username = username;
         this.email = email;
         this.phoneNumber = phoneNumber;
         this.password = password;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(final Long id) {
-        this.id = id;
     }
 
     public String getUsername() {
@@ -82,6 +66,6 @@ public class User {
     }
 
     public UserDto toDto() {
-        return new UserDto(id,username);
+        return new UserDto(getId(), username);
     }
 }
