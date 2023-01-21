@@ -1,20 +1,16 @@
 package me.ablax.warehouse.models;
 
-public class UserDto {
+import java.io.Serializable;
 
-    private final Long userId;
-    private final String username;
+public record UserDto(Long userId, String username) implements Serializable {
 
-    public UserDto(final Long userId, final String username) {
-        this.userId = userId;
-        this.username = username;
-    }
+    private static final long serialVersionUID = 382941L;
 
-    public Long getUserId() {
-        return userId;
-    }
-
-    public String getUsername() {
-        return username;
+    @Override
+    public String toString() {
+        return "UserDto{" +
+                "userId=" + userId +
+                ", username='" + username + '\'' +
+                '}';
     }
 }

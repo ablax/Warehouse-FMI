@@ -18,10 +18,11 @@ public final class AuthenticationUtils {
             return false;
         }
 
-        return user.getUserId() != null;
+        return user.userId() != null;
     }
 
     public static void login(final HttpSession httpSession, final UserDto userDto) {
+        System.out.println("Tuk sum batkoo");
         httpSession.setAttribute("user", userDto);
     }
 

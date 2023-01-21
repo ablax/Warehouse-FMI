@@ -1,0 +1,67 @@
+body {
+    background-color: #f2f2f2;
+    font-family: Arial, sans-serif;
+}
+
+.register-box, .login-box, .forgot-password-box {
+    width: 300px;
+    padding: 20px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    margin: 100px auto;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+form {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+label {
+    width: 100%;
+    margin-bottom: 10px;
+    text-align: left;
+}
+
+input[type="text"], input[type="email"], input[type="password"], input[type="tel"] {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    margin-bottom: 20px;
+    box-sizing: border-box;
+}
+
+input[type="submit"] {
+    width: 100%;
+    background-color: #4CAF50;
+    color: #fff;
+    padding: 14px;
+    border: none;
+    cursor: pointer;
+}
+
+input[type="submit"]:hover {
+    background-color: #45a049;
+}
+
+#error {
+    color: red;
+    margin-top: 10px;
+    text-align: center;
+}
+
+.extra-links {
+    width: 100%;
+    text-align: center;
+    margin-top: 10px;
+}
+
+.extra-links a {
+    color: #007bff;
+    text-decoration: none;
+    margin-right: 10px;
+}

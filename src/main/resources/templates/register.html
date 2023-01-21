@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link href="/auth-style.css" rel="stylesheet" type="text/css">
+    <title>Register page</title>
+</head>
+<body>
+<div class="register-box">
+    <h1>Register</h1>
+    <form action="#" th:action="@{/register}" method="post" th:object="${reqObj}">
+        <label for="username">Username</label>
+        <input type="text" id="username" name="username" th:field="*{username}">
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" th:field="*{email}">
+        <label for="phoneNumber">Phone number</label>
+        <input type="tel" id="phoneNumber" name="phoneNumber" th:field="*{phoneNumber}">
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" th:field="*{password}">
+        <label for="password-confirm">Confirm Password</label>
+        <input type="password" id="password-confirm" name="password-confirm" th:field="*{confirmPassword}">
+        <input type="submit" value="Register">
+        <div id="error" th:if="${exception}">
+            <p class="mb-0" th:text="${exception}">Unknown error</p>
+        </div>
+    </form>
+    <div class="extra-links">
+        <a th:href="@{/}" id="forgot-password">Login instead</a>
+    </div>
+</div>
+</body>
+</html>
