@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link href="/product-style.css" rel="stylesheet" type="text/css">
+    <title th:text="${title}"></title>
+</head>
+<body>
+<h1 th:text="${title}">
+</h1>
+
+<form id="product-form" enctype="multipart/form-data" method="post" th:action="@{/product}" th:object="${reqObj}">
+    <input type="hidden" id="id" name="id" th:field="*{id}">
+
+    <label for="productName">Name:</label>
+    <input type="text" id="productName" name="productName" required th:field="*{productName}">
+    <br>
+
+    <label for="productDescription">Description:</label>
+    <textarea id="productDescription" name="productDescription" th:field="*{productDescription}"></textarea>
+    <br>
+
+    <label for="file">Image:</label>
+    <input type="file" id="file" name="file" accept="image/*"  th:field="*{file}">
+    <br>
+
+    <label for="priceBuy">Buy Price:</label>
+    <input type="number" id="priceBuy" name="priceBuy" min="0" step="0.01" required th:field="*{priceBuy}">
+    <br>
+
+    <label for="priceSell">Sale Price:</label>
+    <input type="number" id="priceSell" name="priceSell" min="0" step="0.01" required th:field="*{priceSell}">
+    <br>
+
+    <label for="productCount">Count:</label>
+    <input type="number" id="productCount" name="productCount" min="0" required th:field="*{productCount}">
+    <br>
+
+    <label for="productCategory">Category:</label>
+    <select id="productCategory" name="productCategory" required th:field="*{productCategory}">
+        <option th:each="category : ${T(me.ablax.warehouse.models.ProductCategory).values()}"
+                th:value="${category}" th:text="${category.displayName}" th:if="${category.isVisible}"></option>
+    </select>
+    <br>
+
+    <label for="skuCode">Code:</label>
+    <input type="text" id="skuCode" name="skuCode" required th:field="*{skuCode}">
+    <br>
+
+    <input type="submit" value="Save">
+</form>
+
+</body>
+</html>

@@ -1,10 +1,75 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <link href="/search-style.css" rel="stylesheet" type="text/css">
+    <title>Search products</title>
+    <script>
+        function confirmDelete(id) {
+            if (confirm("Are you sure you want to delete this product?")) {
+                fetch('/product/' + id, {
+                    method: 'DELETE',
+                })
+
+                document.getElementById("product-" + id).remove();
+            }
+        }
+    </script>
 </head>
 <body>
- Hi random gaaaay nigggas
+<div id="search-container">
+    <form action="#" th:object="${query}">
+        <input type="text" id="searchInput" name="searchInput" placeholder="Product name" th:field="*{searchInput}">
+        <select id="searchCategory" name="searchCategory" th:field="*{searchCategory}">
+            <option th:each="category : ${T(me.ablax.warehouse.models.ProductCategory).values()}"
+                    th:value="${category}" th:text="${category.displayName}"></option>
+        </select>
+        <input type="text" id="searchSku" name="searchSku" placeholder="SKU" th:field="*{searchSku}">
+        <button type="submit">Search</button>
+        <button onclick="e => e.preventDefault(); location.href='/product'; return false">Add product</button>
+        <button onclick="e => e.preventDefault(); location.href='/logout'; return false">Logout</button>
+    </form>
+</div>
+<div class="results-table">
+    <table>
+        <thead>
+        <tr>
+            <th>Image</th>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Buy Price</th>
+            <th>Sell Price</th>
+            <th>Count</th>
+            <th>Category</th>
+            <th>SKU</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody id="results">
+        <tr th:each="product : ${products}" th:id="'product-' + ${product.getId()}">
+            <td th:text="'No image'" th:if="${product.getPicture() == null}"></td>
+            <td th:if="${product.getPicture() != null}"><img th:src="'image/' + ${product.getPicture()}"></td>
+            <td th:text="${product.getProductName()} ?: 'No name'"></td>
+            <td th:text="${product.getProductDescription()} ?: 'No description'"></td>
+            <td th:text="${product.getPriceBuy()} ?: 'No buy price'"></td>
+            <td th:text="${product.getPriceSell()} ?: 'No sell price'"></td>
+            <td th:text="${product.getProductCount()} ?: 'No products available'"></td>
+            <td th:text="${product.getProductCategory().displayName} ?: 'No category'"></td>
+            <td th:text="${product.getSkuCode()} ?: 'No Sku code'"></td>
+            <td> <button class="edit" th:onclick="'location.href=\'/product/' + ${product.getId()} + '\''">Edit</button> <button class="delete-button" th:onclick="'e => e.preventDefault(); confirmDelete(' + ${product.getId()} + '); return false'">Delete</button> </td>
+        </tr>
+        </tbody>
+    </table>
+
+
+</div>
+
+<div class="pagination">
+    <a href="#" class="prev">Previous</a>
+    <a href="#" class="active">1</a>
+    <a href="#">2</a>
+    <a href="#">3</a>
+    <a href="#" class="next">Next</a>
+</div>
 </body>
 </html>

@@ -4,8 +4,12 @@ import jakarta.annotation.Nullable;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PositiveOrZero;
 import jakarta.validation.constraints.Size;
+import lombok.Data;
+import me.ablax.warehouse.entities.ProductEntity;
 import me.ablax.warehouse.models.ProductCategory;
+import org.springframework.web.multipart.MultipartFile;
 
+@Data
 public class ProductReq {
     /* ▪ Наименование на продукт - текст с дължина не по-голяма от 50 символа.
 Задължително поле.
@@ -21,7 +25,7 @@ public class ProductReq {
 материали, Строителни материали)
         ▪ Код - уникален код на продукт(необходимо е да има проверка за уникалност)*/
 
-
+    private Long id;
     @NotNull
     @Size(min = 1, max = 50)
     private String productName;
@@ -41,96 +45,21 @@ public class ProductReq {
     private ProductCategory productCategory;
     @NotNull
     private String skuCode;
+    @Nullable
+    private MultipartFile file;
 
-    public ProductReq() {
+    public static ProductReq fromProductEntity(final ProductEntity productEntity){
+        final ProductReq productReq = new ProductReq();
+        productReq.setId(productEntity.getId());
+        productReq.setProductName(productEntity.getProductName());
+        productReq.setProductDescription(productEntity.getProductDescription());
+        productReq.setPicture(productEntity.getPicture());
+        productReq.setPriceBuy(productEntity.getPriceBuy());
+        productReq.setPriceSell(productEntity.getPriceSell());
+        productReq.setProductCount(productEntity.getProductCount());
+        productReq.setProductCategory(productEntity.getProductCategory());
+        productReq.setSkuCode(productEntity.getSkuCode());
+        return productReq;
     }
 
-    public ProductReq(final String productName, final String productDescription, final String picture, final Double priceBuy, final Double priceSell, final Integer productCount, final ProductCategory productCategory, final String skuCode) {
-        this.productName = productName;
-        this.productDescription = productDescription;
-        this.picture = picture;
-        this.priceBuy = priceBuy;
-        this.priceSell = priceSell;
-        this.productCount = productCount;
-        this.productCategory = productCategory;
-        this.skuCode = skuCode;
-    }
-
-    @Override
-    public String toString() {
-        return "ProductReq{" +
-                "productName='" + productName + '\'' +
-                ", productDescription='" + productDescription + '\'' +
-                ", picture='" + picture + '\'' +
-                ", priceBuy=" + priceBuy +
-                ", priceSell=" + priceSell +
-                ", productCount=" + productCount +
-                ", productCategory=" + productCategory +
-                ", skuCode='" + skuCode + '\'' +
-                '}';
-    }
-
-    public String getProductName() {
-        return productName;
-    }
-
-    public void setProductName(final String productName) {
-        this.productName = productName;
-    }
-
-    public String getProductDescription() {
-        return productDescription;
-    }
-
-    public void setProductDescription(final String productDescription) {
-        this.productDescription = productDescription;
-    }
-
-    public String getPicture() {
-        return picture;
-    }
-
-    public void setPicture(final String picture) {
-        this.picture = picture;
-    }
-
-    public Double getPriceBuy() {
-        return priceBuy;
-    }
-
-    public void setPriceBuy(final Double priceBuy) {
-        this.priceBuy = priceBuy;
-    }
-
-    public Double getPriceSell() {
-        return priceSell;
-    }
-
-    public void setPriceSell(final Double priceSell) {
-        this.priceSell = priceSell;
-    }
-
-    public Integer getProductCount() {
-        return productCount;
-    }
-
-    public void setProductCount(final Integer productCount) {
-        this.productCount = productCount;
-    }
-
-    public ProductCategory getProductCategory() {
-        return productCategory;
-    }
-
-    public void setProductCategory(final ProductCategory productCategory) {
-        this.productCategory = productCategory;
-    }
-
-    public String getSkuCode() {
-        return skuCode;
-    }
-
-    public void setSkuCode(final String skuCode) {
-        this.skuCode = skuCode;
-    }
 }

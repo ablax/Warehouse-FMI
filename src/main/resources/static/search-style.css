@@ -1,0 +1,103 @@
+body {
+    background-color: #f2f2f2;
+    font-family: Arial, sans-serif;
+}
+
+#search-container {
+    width: 300px;
+    margin: 10px auto;
+    text-align: center;
+    display: flex;
+    flex-wrap: nowrap;
+}
+
+form {
+    display: flex;
+    flex-wrap: nowrap;
+    width: 100%;
+}
+
+label {
+    margin-bottom: 10px;
+    width: 75px;
+    text-align: right;
+    margin-right: 10px;
+}
+
+input[type="text"] {
+    flex: 1;
+    padding: 12px;
+    border: 1px solid #ccc;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+}
+
+select {
+    width: auto;
+    padding: 12px;
+    border: 1px solid #ccc;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+}
+
+button {
+    width: auto;
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px 20px;
+    border: none;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+
+.results-table {
+    width: 100%;
+    margin: 20px auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    border: 1px solid #ccc;
+    padding: 12px;
+    text-align: left;
+}
+
+th {
+    background-color: #f2f2f2;
+}
+
+img {
+    width: 50px;
+}
+
+.actions {
+    text-align: center;
+}
+
+.pagination {
+    text-align: center;
+    margin: 20px 0;
+}
+
+.pagination a {
+    color: #000;
+    text-decoration: none;
+    margin: 0 5px;
+}
+
+.pagination .active {
+    font-weight: bold;
+}
+
+.pagination .prev,
+.pagination .next {
+    font-size: smaller;
+}

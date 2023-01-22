@@ -5,7 +5,10 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
+import lombok.Data;
 
+
+@Data
 public class RegisterReq {
 
     /*   ▪ потребителско име - малки и големи латински букви и "_". Дължина между 5
@@ -20,79 +23,18 @@ public class RegisterReq {
 и тире('-')*/
     @Size(min = 5, max = 10)
     @NotNull
-    @Pattern(regexp = "[A-Za-z_]+")
+    @Pattern(regexp = "[A-Za-z_]+", message = "can contain only lower case letter, capital case letter and _")
     private String username;
     @NotNull
     @Size(min = 6, max = 20)
-    @Pattern(regexp = "(?=.*[a-z])(?=.*[A-Z])(?=.*[@_~|\\-]).+")
+    @Pattern(regexp = "(?=.*[a-z])(?=.*[A-Z])(?=.*[!@_~|\\-]).+", message = "should contain at least one lowercase letter, one uppercase letter, and one symbol")
     private String password;
     private String confirmPassword;
     @Email
     @NotNull
     private String email;
     @Nullable
-    @Pattern(regexp = "^[0-9\\- ]+$")
+    @Pattern(regexp = "^[0-9\\- ]+$", message = "can contain only numbers, whitespace and -")
     private String phoneNumber;
 
-    public RegisterReq() {
-    }
-
-    public RegisterReq(final String username, final String password, final String confirmPassword, final String email, final String phoneNumber) {
-        this.username = username;
-        this.password = password;
-        this.confirmPassword = confirmPassword;
-        this.email = email;
-        this.phoneNumber = phoneNumber;
-    }
-
-    @Override
-    public String toString() {
-        return "RegisterReq{" +
-                "username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                ", confirmPassword='" + confirmPassword + '\'' +
-                ", email='" + email + '\'' +
-                ", phoneNumber='" + phoneNumber + '\'' +
-                '}';
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(final String username) {
-        this.username = username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(final String password) {
-        this.password = password;
-    }
-
-    public String getConfirmPassword() {
-        return confirmPassword;
-    }
-
-    public void setConfirmPassword(final String confirmPassword) {
-        this.confirmPassword = confirmPassword;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(final String email) {
-        this.email = email;
-    }
-
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public void setPhoneNumber(final String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
 }
