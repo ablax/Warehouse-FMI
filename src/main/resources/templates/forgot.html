@@ -7,8 +7,8 @@
 </head>
 <body>
 <div class="forgot-password-box">
-    <h1>Register</h1>
-    <form action="#" th:action="@{/reset}" method="post" th:object="${reqObj}">
+    <h1>Forgotten Password?</h1>
+    <form action="#" th:action="@{/forgot}" method="post" th:object="${reqObj}">
         <label for="email">Email</label>
         <input type="email" id="email" name="email" th:field="*{email}">
         <input type="submit" value="Reset">

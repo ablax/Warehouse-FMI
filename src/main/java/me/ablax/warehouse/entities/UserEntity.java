@@ -23,6 +23,9 @@ public class UserEntity extends BaseEntity {
     @Column
     private String password;
 
+    @Column
+    private String resetToken;
+
     public UserDto toDto(){
         return new UserDto(getId(), username);
     }

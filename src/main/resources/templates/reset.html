@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link href="/auth-style.css" rel="stylesheet" type="text/css">
+    <title>Reset Password</title>
+</head>
+<body>
+<div class="forgot-password-box">
+    <h1>Reset</h1>
+    <form action="#" th:action="'/reset/'+${token}" method="post" th:object="${reqObj}">
+        <input type="hidden" id="id" name="id" th:field="*{id}">
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" th:field="*{password}">
+        <label for="password">Confirm Password</label>
+        <input type="password" id="confPassword" name="confPassword" th:field="*{confirmPassword}">
+        <input type="submit" value="Reset">
+        <div id="error" th:if="${exception}">
+            <p class="mb-0" th:text="${exception}">Unknown error</p>
+        </div>
+    </form>
+</div>
+</body>
+</html>
