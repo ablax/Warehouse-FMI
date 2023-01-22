@@ -22,7 +22,6 @@ public final class AuthenticationUtils {
     }
 
     public static void login(final HttpSession httpSession, final UserDto userDto) {
-        System.out.println("Tuk sum batkoo");
         httpSession.setAttribute("user", userDto);
     }
 
