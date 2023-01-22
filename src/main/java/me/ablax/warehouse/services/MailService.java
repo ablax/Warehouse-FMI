@@ -26,7 +26,7 @@ public class MailService {
                 "\n" +
                 "You have requested to reset your email.\n" +
                 "To do so please access the following url:\n" +
-                "https://ablax.me/reset/" + token + "\n" +
+                "http://ablax.me/reset/" + token + "\n" +
                 "\n" +
                 "\n" +
                 "\n" +

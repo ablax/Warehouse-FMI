@@ -26,6 +26,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.IntStream;
 
 
@@ -112,7 +113,7 @@ public class MainController {
             return HOME_PAGE;
         }
         if (productReq.getFile() != null && !productReq.getFile().isEmpty()) {
-            final File imageToWrite = new File(imagesDir, AuthenticationUtils.getUser(session).username() + "" + productReq.getFile().getOriginalFilename());
+            final File imageToWrite = new File(imagesDir, UUID.randomUUID() + "" + productReq.getFile().getOriginalFilename());
             try (final FileOutputStream fileOutputStream = new FileOutputStream(imageToWrite)) {
                 fileOutputStream.write(productReq.getFile().getBytes());
                 fileOutputStream.flush();
