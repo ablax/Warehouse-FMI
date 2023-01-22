@@ -18,7 +18,7 @@
 </head>
 <body>
 <div id="search-container">
-    <form action="#" th:object="${query}">
+    <form action="/" th:object="${query}">
         <input type="text" id="searchInput" name="searchInput" placeholder="Product name" th:field="*{searchInput}">
         <select id="searchCategory" name="searchCategory" th:field="*{searchCategory}">
             <option th:each="category : ${T(me.ablax.warehouse.models.ProductCategory).values()}"
@@ -65,6 +65,7 @@
             </td>
         </tr>
         </tbody>
+        <div th:if="${products.content.isEmpty()}">There are not products found!</div>
     </table>
 
 
