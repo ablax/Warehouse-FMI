@@ -2,17 +2,18 @@ package me.ablax.warehouse.repositories;
 
 import me.ablax.warehouse.entities.ProductEntity;
 import me.ablax.warehouse.models.ProductCategory;
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
-
 @Repository
-public interface ProductRepository extends JpaRepository<ProductEntity, Long> {
+public interface ProductRepository extends PagingAndSortingRepository<ProductEntity, Long>, CrudRepository<ProductEntity, Long> {
 
-    List<ProductEntity> findAllBySkuCodeContainsIgnoreCase(final String sku);
+    Page<ProductEntity> findAllBySkuCodeContainsIgnoreCase(final String sku, Pageable pageable);
 
-    List<ProductEntity> findAllByProductCategoryAndProductNameContainsIgnoreCase(final ProductCategory category, final String name);
-    List<ProductEntity> findAllByProductNameContainsIgnoreCase(final String name);
+    Page<ProductEntity> findAllByProductCategoryAndProductNameContainsIgnoreCase(final ProductCategory category, final String name, Pageable pageable);
+    Page<ProductEntity> findAllByProductNameContainsIgnoreCase(final String name, Pageable pageable);
 
 }

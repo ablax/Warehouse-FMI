@@ -9,9 +9,16 @@ public class SearchReq {
     private String searchInput;
     private ProductCategory searchCategory;
     private String searchSku;
-
+    private int page;
+    private int size;
 
     public String toQuery() {
-        return new StringBuilder().append("?searchInput=").append(searchInput).append("&searchCategory=").append(searchCategory.toString()).append("&searchSku=").append(searchSku).toString();
+        if (searchCategory == null) return "?";
+        return "?searchInput=" + searchInput + "&searchCategory=" + searchCategory + "&searchSku=" + searchSku + "&page=" + page + "&size=" + size;
+    }
+
+    public String toQuery(int newPage) {
+        if (searchCategory == null) return "?";
+        return "?searchInput=" + searchInput + "&searchCategory=" + searchCategory + "&searchSku=" + searchSku + "&page=" + newPage + "&size=" + size;
     }
 }

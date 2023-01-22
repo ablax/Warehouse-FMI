@@ -46,7 +46,7 @@
         </tr>
         </thead>
         <tbody id="results">
-        <tr th:each="product : ${products}" th:id="'product-' + ${product.getId()}">
+        <tr th:each="product : ${products.content}" th:id="'product-' + ${product.getId()}">
             <td th:text="'No image'" th:if="${product.getPicture() == null}"></td>
             <td th:if="${product.getPicture() != null}"><img th:src="'image/' + ${product.getPicture()}"></td>
             <td th:text="${product.getProductName()} ?: 'No name'"></td>
@@ -56,7 +56,13 @@
             <td th:text="${product.getProductCount()} ?: 'No products available'"></td>
             <td th:text="${product.getProductCategory().displayName} ?: 'No category'"></td>
             <td th:text="${product.getSkuCode()} ?: 'No Sku code'"></td>
-            <td> <button class="edit" th:onclick="'location.href=\'/product/' + ${product.getId()} + '\''">Edit</button> <button class="delete-button" th:onclick="'e => e.preventDefault(); confirmDelete(' + ${product.getId()} + '); return false'">Delete</button> </td>
+            <td>
+                <button class="edit" th:onclick="'location.href=\'/product/' + ${product.getId()} + '\''">Edit</button>
+                <button class="delete-button"
+                        th:onclick="'e => e.preventDefault(); confirmDelete(' + ${product.getId()} + '); return false'">
+                    Delete
+                </button>
+            </td>
         </tr>
         </tbody>
     </table>
@@ -64,12 +70,9 @@
 
 </div>
 
-<div class="pagination">
-    <a href="#" class="prev">Previous</a>
-    <a href="#" class="active">1</a>
-    <a href="#">2</a>
-    <a href="#">3</a>
-    <a href="#" class="next">Next</a>
+<div th:if="${products.totalPages > 0}" class="pagination">
+    <a th:each="pageNumber : ${pageNumbers}" th:href="'/' + ${query.toQuery(pageNumber)}" th:text="${pageNumber}" th:class="${pageNumber==products.number + 1} ? active"></a>
 </div>
+
 </body>
 </html>

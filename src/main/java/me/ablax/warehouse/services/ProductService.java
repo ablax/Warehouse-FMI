@@ -6,10 +6,13 @@ import me.ablax.warehouse.models.ProductCategory;
 import me.ablax.warehouse.models.req.ProductReq;
 import me.ablax.warehouse.models.req.SearchReq;
 import me.ablax.warehouse.repositories.ProductRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.thymeleaf.util.StringUtils;
 
 import java.util.Collection;
+import java.util.Collections;
 
 @Service
 public class ProductService {
@@ -43,19 +46,20 @@ public class ProductService {
         productRepository.save(productEntity);
     }
 
-    public Collection<ProductEntity> getAllProducts(final SearchReq searchReq) {
+    public Page<ProductEntity> getAllProducts(final SearchReq searchReq, int page, int size) {
         if (!StringUtils.isEmpty(searchReq.getSearchSku())) {
-            return productRepository.findAllBySkuCodeContainsIgnoreCase(searchReq.getSearchSku());
+            return productRepository.findAllBySkuCodeContainsIgnoreCase(searchReq.getSearchSku(), PageRequest.of(page, size));
         }
         if (searchReq.getSearchCategory() != null) {
             if (searchReq.getSearchCategory() == ProductCategory.ALL) {
-                return productRepository.findAllByProductNameContainsIgnoreCase(searchReq.getSearchInput());
+                return productRepository.findAllByProductNameContainsIgnoreCase(searchReq.getSearchInput(), PageRequest.of(page, size));
             } else {
-                return productRepository.findAllByProductCategoryAndProductNameContainsIgnoreCase(searchReq.getSearchCategory(), searchReq.getSearchInput());
+                return productRepository.findAllByProductCategoryAndProductNameContainsIgnoreCase(searchReq.getSearchCategory(), searchReq.getSearchInput(), PageRequest.of(page, size));
             }
         }
-        return productRepository.findAll();
+        return Page.empty();
     }
+
 
     public ProductReq getProduct(final String id) {
         return ProductReq.fromProductEntity(productRepository.findById(Long.parseLong(id)).orElse(new ProductEntity()));
